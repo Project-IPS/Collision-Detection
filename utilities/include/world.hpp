@@ -26,6 +26,7 @@ class World
         BVH bvh =  BVH(shapes);
         bvh.buildTree(bvh.root, 0, shapes.size() - 1);
         getPotentialContacts(bvh.root, collisionArray);
+        // call dispatcher to narrowphase
         printshapes(shapes);
         printbuildtree(bvh.root);
         printcollisions(collisionArray);
