@@ -27,6 +27,7 @@ class Dispatcher
     void dispatch(Circle& c, Rectangle& r)
     {
         //dispatches objects to right functions
+        
     }   
 };
 
@@ -62,6 +63,7 @@ class Checkcollisions
         }
         return test;
     }
+    
 
     bool intersectCircle(Circle c, vec2 p1, vec2 p2)
     {
