@@ -54,7 +54,7 @@ void resolveCollision(vec2& currPos, vec2& prevPos, Rectangle& rect, Circle& c)
             float disNormalVector = std::abs(std::sqrt((rect.points[k].x - rect.points[k - 1].x)*(rect.points[k].x - rect.points[k - 1].x) + (rect.points[k].y - rect.points[k-1].y)*rect.points[k].y - rect.points[k-1].y));
             vec2 normalVector = vec2((rect.points[k].x - rect.points[k-1].x)/disNormalVector, (rect.points[k].y - rect.points[k-1].y)/disNormalVector);
             float discurrVector = std::abs(std::sqrt((rect.points[j].x - rect.points[k].x)*(rect.points[j].x - rect.points[k].x) + (rect.points[j].y - rect.points[k].y)*rect.points[j].y - rect.points[k].y));
-             vec2 currVector = vec2((rect.points[j].x - rect.points[k].x)/disCurrVector, (rect.points[j].y - rect.points[k].y)/disCurrVector);
+             vec2 currVector = vec2((rect.points[j].x - rect.points[k].x)/discurrVector, (rect.points[j].y - rect.points[k].y)/discurrVector);
             float cosAngle = displacementVector.x*currVector.x + displacementVector.y*currVector.y;
             float sinAngle = std::abs(std::sqrt(1 - cosAngle*cosAngle));
             float travelledDistance = disDisplacementVector*sinAngle;

@@ -13,6 +13,8 @@ struct vec2
         x = x_in;
         y = y_in;
     }
+
+    
 };
 
 #endif

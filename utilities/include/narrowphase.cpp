@@ -4,6 +4,8 @@
 #include<cmath>
 #include"shapes.hpp"
 #include"vec2.hpp"
+#include"broadphase.hpp"
+
 struct Contact
 {
     // stores information about the detected collision contact point
@@ -15,21 +17,36 @@ struct Contact
 struct Collisiondata
 {
     public:
-    std::vector<Contact> dataArray;
+    std::vector<PotentialContact> dataArray;
 
 };
 
 class Dispatcher
 {
     public:
-    std::vector<Collisiondata> collisionInfo; 
+    Collisiondata collisionInfo; 
+    std::vector<PotentialContact> getcollisionInfo();
 
-    void dispatch(Circle& c, Rectangle& r)
+    void dispatch(std::vector<PotentialContact> receieved)
     {
-        //dispatches objects to right functions
+        for(int i =0; i<receieved.size(); i++){
+        Circle c = receieved[i].body1;
+        Rectangle r = receieved[i].body2;
+        Checkcollisions checker;
+        bool flag = checker.circle_rectangle(c, r);
+        if(flag == true)
+        {
+            collisionInfo.dataArray.push_back(PotentialContact(c, r));
+        }
+        }
+        
         
     }   
 };
+std::vector<PotentialContact> Dispatcher::getcollisionInfo()
+{
+    return collisionInfo.dataArray;
+}
 
 class Checkcollisions
 {
@@ -39,10 +56,10 @@ class Checkcollisions
     {
         // check for collision and update collisionInfo array
         return pointInRectangle( c.center, r) ||
-        intersectCircle(c, r.points[0], r.points[1]) ||
-        intersectCircle(c, r.points[1], r.points[2]) ||
-        intersectCircle(c, r.points[2], r.points[3]) ||
-        intersectCircle(c, r.points[3], r.points[0]);
+        checksegmentIntersection(c, r.points[0], r.points[1]) ||
+        checksegmentIntersection(c, r.points[1], r.points[2]) ||
+        checksegmentIntersection(c, r.points[2], r.points[3]) ||
+        checksegmentIntersection(c, r.points[3], r.points[0]);
     }
 
     bool pointInRectangle(vec2 centerofcircle, Rectangle rect)
@@ -63,16 +80,11 @@ class Checkcollisions
         }
         return test;
     }
-    
 
-    bool intersectCircle(Circle c, vec2 p1, vec2 p2)
+    bool ptInsideCircle(Circle& c, vec2& pt)
     {
-        // code to detect whether a ray intersects a circle or not
-        float A = p2.y - p1.y;
-        float B = p1.x - p2.x;
-        float C = p1.y*(p2.x - p1.x) - p2.x*(p2.y - p1.y);
-
-        return (perpendicularDistance(A, B, C, c.center) <= c.radius);
+    if(std::abs(std::sqrt((c.center.x - pt.x)*(c.center.x - pt.x) + (c.center.y - pt.y)*(c.center.y - pt.y) )) < c.radius) return true;
+    else return false;
     }
 
     float perpendicularDistance(float A, float B, float C, vec2 point)
@@ -80,5 +92,23 @@ class Checkcollisions
         float distance = std::abs(A*point.x +B*point.y + C)/(std::abs(std::sqrt(A*A +B*B)));
         return distance;
     }
+    void findline(float &A, float &B, float &C, vec2& pt1, vec2& pt2)
+    {
+    A = pt2.y - pt1.y;
+    B = pt1.x - pt2.x;
+    C = pt1.y*(pt2.x - pt1.x) - pt2.x*(pt2.y - pt1.y);
+
+    }
+    
+    bool checksegmentIntersection(Circle c, vec2& pt1, vec2& pt2)
+    {
+    if(ptInsideCircle(c, pt1) || ptInsideCircle(c, pt2)) return true;
+    float m, n, p;
+    findline(m, n, p, pt1, pt2);
+    float distance = perpendicularDistance(m, n, p, c.center);
+    return distance < c.radius;
+    }
+
+    
 };
 #endif

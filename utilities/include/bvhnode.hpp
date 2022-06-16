@@ -11,10 +11,12 @@ class BVHnode
 {
     public:
     Rectangle body;
+    
     std::shared_ptr<BVHnode> left;
     std::shared_ptr<BVHnode> right;
     AABB enclosedAABB;
     BVHnode() = default;
     BVHnode(Rectangle body): body(body) {}
+   
 };
 #endif
