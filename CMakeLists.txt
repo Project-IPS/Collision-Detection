@@ -4,5 +4,6 @@ set(CMAKE_CXX_STANDARD 17)
 project(Collision VERSION 1.0.0)
 
 add_subdirectory(utilities)
+add_subdirectory(testing)
 
 add_subdirectory(main)
