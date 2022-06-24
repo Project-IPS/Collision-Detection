@@ -4,7 +4,8 @@
 #include"bvhnode.hpp"
 #include"bvh.hpp"
 #include "shapes.hpp"
-
+#include"iostream"
+#include"aabb.hpp"
 struct PotentialContact
 {
     public:
@@ -17,11 +18,21 @@ bool isLeaf(std::shared_ptr<BVHnode> node)
 {
     return (node->left == nullptr && node->right == nullptr);
 }
-
-
-void getPotentialContacts(std::shared_ptr<BVHnode>node,  std::vector<PotentialContact>& collisionArray, Circle c)
+void hello()
 {
-    if (!(node->enclosedAABB.overlapsWith(c.BoundingVolume))) return;
+    std::cout<<" inside hello"<<std::endl;
+}
+
+
+void getPotentialContacts(std::shared_ptr<BVHnode>node,  std::vector<PotentialContact>& collisionArray, Circle& c)
+{
+    if(node == nullptr) return;
+   
+     AABB P1 =node->enclosedAABB;
+    AABB P2 = c.BoundingVolume;
+    
+    if (!(P1.overlapsWith(P2))) return;
+    
 
     if(isLeaf(node)) 
     {
@@ -30,6 +41,9 @@ void getPotentialContacts(std::shared_ptr<BVHnode>node,  std::vector<PotentialCo
     }
     getPotentialContacts(node->left, collisionArray, c);
     getPotentialContacts(node->right, collisionArray, c);
+   
+    return;
+
 
 }
 #endif

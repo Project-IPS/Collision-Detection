@@ -2,6 +2,14 @@
 #include"vec2.hpp"
 #include <vector>
 #include<cmath>
+#include"iostream"
+void findline(float &A, float &B, float &C, vec2& pt1, vec2& pt2)
+{
+    A = pt2.y - pt1.y;
+    B = pt1.x - pt2.x;
+    C = pt1.y*(pt2.x - pt1.x) - pt2.x*(pt2.y - pt1.y);
+
+}
 bool checkSide(float A, float B, float C, vec2 pt1, vec2 pt2 )
 {
     bool a = A*pt1.x +B*pt1.y + C >0;
@@ -24,29 +32,27 @@ bool checksegmentIntersection(Circle c, vec2& pt1, vec2& pt2)
     float m, n, p;
     findline(m, n, p, pt1, pt2);
     float distance = perpendicularDistance(m, n, p, c.center);
-    return distance < c.radius;
+    return distance <= c.radius;
     
 }
 
-void findline(float &A, float &B, float &C, vec2& pt1, vec2& pt2)
-{
-    A = pt2.y - pt1.y;
-    B = pt1.x - pt2.x;
-    C = pt1.y*(pt2.x - pt1.x) - pt2.x*(pt2.y - pt1.y);
 
-}
 void resolveCollision(vec2& currPos, vec2& prevPos, Rectangle& rect, Circle& c)
 {
-    vec2 displacement = vec2(currPos.x - prevPos.x, currPos.y - prevPos.y);
+    std::cout<<"Inside resolution"<<std::endl;
+   
     std::vector<vec2> correctionDisplacements;
+    int flag = false;
     for ( int i = 3; i >= 0; i--)
     {
+        if(flag == true) break;
         int k = i;
         int j = (i+1)%4;
         float A, B, C;
         findline(A, B, C, rect.points[k], rect.points[j] );
         if(checksegmentIntersection(c, rect.points[k], rect.points[j]) || !(checkSide(A, B, C, currPos, prevPos)))
         {
+            flag = true;
             
             float allowedDistance = perpendicularDistance(A, B, C, prevPos) - c.radius;
             float disDisplacementVector = std::abs(std::sqrt((currPos.x - prevPos.x)*(currPos.x - prevPos.x) + (currPos.y - prevPos.y)*currPos.y - prevPos.y));

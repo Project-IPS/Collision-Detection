@@ -51,8 +51,10 @@ class Circle
     vec2 center;
     float radius;
     AABB BoundingVolume;
-
-    Circle(vec2& center, float& radius): center(center), radius(radius) {}
+    Circle() = default;
+    Circle(vec2& center, float& radius): center(center), radius(radius) {
+        calculateAABB();
+    }
 
     void calculateAABB()
     {

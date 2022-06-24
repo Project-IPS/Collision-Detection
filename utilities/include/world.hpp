@@ -14,6 +14,7 @@
 class World
 {
     public:
+    World() {};
     std::vector<Rectangle> shapes;
     std::vector<PotentialContact> collisionArray;
     Circle pointer;
@@ -24,27 +25,45 @@ class World
     {
         shapes.push_back(obj);
     }
+    void setCircle(Circle& Pointer, vec2 prevpos)
+    {
+        pointer = Pointer;
+        currPos = pointer.center;
+        prevPos = prevpos;
+        //pointer.calculateAABB();
+
+    }
 
     void Compute()
     { 
+        std::cout<<"The initial Position is "<<currPos.x<<" "<<currPos.y<<std::endl;
+        printAABB(pointer.BoundingVolume);
         BVH bvh =  BVH(shapes);
+       
         bvh.buildTree(bvh.root, 0, shapes.size() - 1);
+        
+        //printbuildtree(bvh.root);
+        hello();
         getPotentialContacts(bvh.root, collisionArray, pointer);
+        printcollisions(collisionArray); 
+       
         Dispatcher dispatch;
         dispatch.dispatch(collisionArray);
         std::vector<PotentialContact> narrowphaseArray = dispatch.getcollisionInfo();
-
+        printcollisions(narrowphaseArray); 
+        
         for(int i =0; i< narrowphaseArray.size(); i++)
         {
             resolveCollision(currPos, prevPos, narrowphaseArray[i].body2 , narrowphaseArray[i].body1);
 
         }
+        std::cout<<"The changed position is "<<currPos.x<<" "<<currPos.y<<std::endl;
 
 
         // call dispatcher to narrowphase
-        printshapes(shapes);
-        printbuildtree(bvh.root);
-        printcollisions(collisionArray);
+        
+        
+        
     } 
 };
 #endif

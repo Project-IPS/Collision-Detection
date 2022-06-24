@@ -6,54 +6,24 @@
 #include"vec2.hpp"
 #include"broadphase.hpp"
 
-struct Contact
-{
-    // stores information about the detected collision contact point
-    vec2 contactPoint;
-    vec2 normal;
-    double penetrationDepth;
-};
 
 struct Collisiondata
 {
     public:
     std::vector<PotentialContact> dataArray;
+    Collisiondata() = default;
 
 };
 
-class Dispatcher
-{
-    public:
-    Collisiondata collisionInfo; 
-    std::vector<PotentialContact> getcollisionInfo();
-
-    void dispatch(std::vector<PotentialContact> receieved)
-    {
-        for(int i =0; i<receieved.size(); i++){
-        Circle c = receieved[i].body1;
-        Rectangle r = receieved[i].body2;
-        Checkcollisions checker;
-        bool flag = checker.circle_rectangle(c, r);
-        if(flag == true)
-        {
-            collisionInfo.dataArray.push_back(PotentialContact(c, r));
-        }
-        }
-        
-        
-    }   
-};
-std::vector<PotentialContact> Dispatcher::getcollisionInfo()
-{
-    return collisionInfo.dataArray;
-}
 
 class Checkcollisions
 {
     public:
+    Checkcollisions() = default;
 
     bool circle_rectangle(Circle& c, Rectangle& r)
     {
+        
         // check for collision and update collisionInfo array
         return pointInRectangle( c.center, r) ||
         checksegmentIntersection(c, r.points[0], r.points[1]) ||
@@ -106,9 +76,40 @@ class Checkcollisions
     float m, n, p;
     findline(m, n, p, pt1, pt2);
     float distance = perpendicularDistance(m, n, p, c.center);
-    return distance < c.radius;
+    return distance <= c.radius;
     }
 
     
 };
+
+class Dispatcher
+{
+    public:
+    Dispatcher() = default;
+    Collisiondata collisionInfo; 
+    std::vector<PotentialContact> getcollisionInfo();
+
+    void dispatch(std::vector<PotentialContact> receieved)
+    {
+     
+        for(int i =0; i<receieved.size(); i++){
+        Circle c = receieved[i].body1;
+        Rectangle r = receieved[i].body2;
+        Checkcollisions checker;
+        bool flag = checker.circle_rectangle(c, r);
+        if(flag == true)
+        {
+            std::cout<<"Collision detected!"<<std::endl;
+            collisionInfo.dataArray.push_back(PotentialContact(c, r));
+        }
+        }
+        
+        
+    }   
+};
+std::vector<PotentialContact> Dispatcher::getcollisionInfo()
+{
+    return collisionInfo.dataArray;
+}
+
 #endif

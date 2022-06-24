@@ -24,15 +24,24 @@ void printshape(Rectangle& shape, int index)
     std::cout<<std::endl;
 }
 
+void printCircle(Circle& c,int index)
+{
+    std::cout<<"Circle "<<index<<std::endl;
+    std::cout<<"Center "<<c.center.x<< " "<<c.center.y<<std::endl;
+    std::cout<<"Radius "<<c.radius<<std::endl;
+}
+
 void printshapes(std::vector<Rectangle>& shapes)
 {
-    std::cout<<"Shapes"<<std::endl;
+    std::cout<<"Shapes: "<<std::endl;
     for(int i=0;i<shapes.size();i++)
     {
          printshape(shapes[i], i+1);
     }
     std::cout<<std::endl;
 }
+
+
    
 void printnodes(std::shared_ptr<BVHnode> node, int index)
 {
@@ -55,8 +64,8 @@ void printcollisions(std::vector<PotentialContact>& collisionArray)
     {
         std::cout<<"Collision between the following shapes:"<<std::endl;
         PotentialContact p = collisionArray[i];
-        printshape(p.body1, 1);
         printshape(p.body2, 2);
+        printCircle(p.body1, 1);
         std::cout<<std::endl;
     }
 }

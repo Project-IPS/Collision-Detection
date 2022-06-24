@@ -3,6 +3,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 file(GLOB_RECURSE Srs
     src/*.c*
+    
 )
 file(GLOB_RECURSE Hdrs
     include/*.h*
