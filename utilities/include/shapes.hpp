@@ -13,7 +13,7 @@ class Rectangle
     AABB BoundingVolume;
 
     Rectangle() = default;
-    Rectangle (std::vector<vec2>& points, vec2& center): points(points), center(center) 
+    Rectangle (std::vector<vec2>& points): points(points) 
     {
         calculateAABB();
     }
