@@ -6,6 +6,7 @@
 #include <fstream>
 #include "config.hpp"
 #include"print.hpp"
+#include "finder.hpp"
 using namespace rapidjson;
 int main()
 {   
@@ -33,10 +34,9 @@ int main()
         auto rect = Rectangle(points[i]);
         collisionWorld.addShapes(rect);
     }
+
     auto c = Circle(center, radius);
-    collisionWorld.setCircle(c, vec2(-2, 0));
+    Finder fin = Finder(collisionWorld, c, vec2(-2, 0));
+    vec2 newPos = fin.calculate();
     
-    printshapes(collisionWorld.shapes);
-    //Compute all collision
-   collisionWorld.Compute();
 }
