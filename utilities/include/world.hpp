@@ -43,7 +43,7 @@ class World
         bvh.buildTree(bvh.root, 0, shapes.size() - 1);
         
         //printbuildtree(bvh.root);
-        hello();
+        
         getPotentialContacts(bvh.root, collisionArray, pointer);
         printcollisions(collisionArray); 
        

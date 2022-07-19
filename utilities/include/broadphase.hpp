@@ -18,10 +18,7 @@ bool isLeaf(std::shared_ptr<BVHnode> node)
 {
     return (node->left == nullptr && node->right == nullptr);
 }
-void hello()
-{
-    std::cout<<" inside hello"<<std::endl;
-}
+
 
 
 void getPotentialContacts(std::shared_ptr<BVHnode>node,  std::vector<PotentialContact>& collisionArray, Circle& c)

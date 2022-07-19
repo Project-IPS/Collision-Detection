@@ -15,6 +15,7 @@ class Rectangle
     Rectangle() = default;
     Rectangle (std::vector<vec2>& points): points(points) 
     {
+        
         calculateAABB();
     }
 
