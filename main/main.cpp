@@ -34,16 +34,26 @@ int main()
     auto rect = Rectangle(points1);
     collisionWorld.addShapes(rect);
 
-    // std::vector<vec2> points2;
-    // points2.push_back(vec2(-2,-2));
-    // points2.push_back(vec2(2,-2));
-    // points2.push_back(vec2(2,2));
-    // points2.push_back(vec2(-2,2));
-    // //vec2 center2 = vec2(0.25,0);
-    // auto rect2 = Rectangle(points2);
-    // collisionWorld.addShapes(rect2);
+    std::vector<vec2> points2;
+    points2.push_back(vec2(0,0));
+    points2.push_back(vec2(1,-1));
+    points2.push_back(vec2(2,0));
+    points2.push_back(vec2(1,1));
+    //vec2 center2 = vec2(0.25,0);
+    auto rect2 = Rectangle(points2);
+    collisionWorld.addShapes(rect2);
+
+
+    std::vector<vec2> points3;
+    points3.push_back(vec2(1,1));
+    points3.push_back(vec2(1,-1));
+    points3.push_back(vec2(3,-1));
+    points3.push_back(vec2(3,1));
+    //vec2 center2 = vec2(0.25,0);
+    auto rect3 = Rectangle(points3);
+    collisionWorld.addShapes(rect3);
     
-    vec2 center =vec2(3.5,0.25);
+    vec2 center =vec2(3.5 , 0);
     float radius = 0.0014;
     auto c = Circle(center, radius);
     //config.setCircle(center, radius);
@@ -57,7 +67,7 @@ int main()
     // }
 
     //auto c = Circle(center, radius);
-    Finder fin = Finder(collisionWorld, c, vec2(0, 0));
+    Finder fin = Finder(collisionWorld, c, vec2(-1, 0));
     vec2 newPos = fin.calculate();
     
 }

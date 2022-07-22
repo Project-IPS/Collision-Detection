@@ -1,0 +1,135 @@
+The initial Position is 3.5 0
+ AABB
+Max is (3.5014,0.0014)
+Min is (3.4986,-0.0014)
+
+The build tree is traversed in the following order:
+Node 1
+Body contained:
+ AABB
+Max is (4,1)
+Min is (0,-1)
+
+
+Node 3
+Body contained:
+ AABB
+Max is (2,1)
+Min is (0,-1)
+
+
+Node 7
+Body contained:
+ Shape 1
+Point0is(0,0)
+Point1is(1,-1)
+Point2is(2,0)
+Point3is(1,1)
+Center is(1,0)
+ AABB
+Max is (2,1)
+Min is (0,-1)
+
+
+ AABB
+Max is (2,1)
+Min is (0,-1)
+
+
+Node 8
+Body contained:
+ Shape 1
+Point0is(1,1)
+Point1is(1,-1)
+Point2is(3,-1)
+Point3is(3,1)
+Center is(2,0)
+ AABB
+Max is (3,1)
+Min is (1,-1)
+
+
+ AABB
+Max is (3,1)
+Min is (1,-1)
+
+
+Node 4
+Body contained:
+ Shape 1
+Point0is(2,0)
+Point1is(3,-1)
+Point2is(4,0)
+Point3is(3,1)
+Center is(3,0)
+ AABB
+Max is (4,1)
+Min is (2,-1)
+
+
+ AABB
+Max is (4,1)
+Min is (2,-1)
+
+
+
+Number of Collisions: 1
+Collision between the following shapes:
+ Shape 2
+Point0is(2,0)
+Point1is(3,-1)
+Point2is(4,0)
+Point3is(3,1)
+Center is(3,0)
+ AABB
+Max is (4,1)
+Min is (2,-1)
+
+
+Circle 1
+Center 3.5 0
+Radius 0.0014
+
+Collision detected!
+Inside resolution
+The  position is 1.57376 0
+Number of Collisions: 2
+Collision between the following shapes:
+ Shape 2
+Point0is(0,0)
+Point1is(1,-1)
+Point2is(2,0)
+Point3is(1,1)
+Center is(1,0)
+ AABB
+Max is (2,1)
+Min is (0,-1)
+
+
+Circle 1
+Center 1.57376 0
+Radius 0.0014
+
+Collision between the following shapes:
+ Shape 2
+Point0is(1,1)
+Point1is(1,-1)
+Point2is(3,-1)
+Point3is(3,1)
+Center is(2,0)
+ AABB
+Max is (3,1)
+Min is (1,-1)
+
+
+Circle 1
+Center 1.57376 0
+Radius 0.0014
+
+Collision detected!
+Inside resolution
+The  position is -0.426244 0
+Inside resolution
+The  position is -0.426244 0
+Number of Collisions: 0
+The final  position is -0.426244 0

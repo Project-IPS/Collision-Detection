@@ -50,7 +50,7 @@ void resolveCollision(vec2& currPos, vec2& prevPos, Rectangle& rect, Circle& c)
         int j = (i+1)%4;
         float A, B, C;
         findline(A, B, C, rect.points[k], rect.points[j] );
-        std::cout<<A<<" "<<B<<" "<<C<<std::endl;
+        
         if(checksegmentIntersection(c, rect.points[k], rect.points[j]) || !(checkSide(A, B, C, currPos, prevPos)))
         {
             //flag = true;
@@ -62,7 +62,7 @@ void resolveCollision(vec2& currPos, vec2& prevPos, Rectangle& rect, Circle& c)
             //     correctionDisplacements.push_back(correction);
             //     continue;
             // }
-            std::cout<<" allow "<<i<<perpendicularDistance(A, B, C, prevPos)<<std::endl;
+            // std::cout<<" allow "<<i<<perpendicularDistance(A, B, C, prevPos)<<std::endl;
             int al =  k-1;
             if(al == -1) al = 3;
             float disDisplacementVector = std::abs(std::sqrt((currPos.x - prevPos.x)*(currPos.x - prevPos.x) + (currPos.y - prevPos.y)*(currPos.y - prevPos.y)));
@@ -74,11 +74,11 @@ void resolveCollision(vec2& currPos, vec2& prevPos, Rectangle& rect, Circle& c)
             float cosAngle = displacementVector.x*currVector.x + displacementVector.y*currVector.y;
             float sinAngle = std::abs(std::sqrt(1 - cosAngle*cosAngle));
             float travelledDistance = disDisplacementVector*sinAngle;
-            float rollBack = (travelledDistance - allowedDistance); // length of the vector which will be used to displace the particle back in correct position
+            float rollBack = (travelledDistance - allowedDistance) +0.3; // length of the vector which will be used to displace the particle back in correct position
             vec2 correction =  vec2(normalVector.x*rollBack, normalVector.y*rollBack);
-            std::cout<<" dis"<<i<<disDisplacementVector<<std::endl;
-            std::cout<<" nor vec "<<i<<normalVector.x<<" "<<normalVector.y<<std::endl;
-            std::cout<<" correction "<<i<<correction.x<<" "<<correction.y<<std::endl;
+            // std::cout<<" dis"<<i<<disDisplacementVector<<std::endl;
+            // std::cout<<" nor vec "<<i<<normalVector.x<<" "<<normalVector.y<<std::endl;
+            // std::cout<<" correction "<<i<<correction.x<<" "<<correction.y<<std::endl;
             correctionDisplacements.push_back(correction);
         }
     }

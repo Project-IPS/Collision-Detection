@@ -81,8 +81,8 @@ void printtree(std::shared_ptr<BVHnode> node, int index)
     else
     {
         printnodes(node, index);
-        printtree(node->left, index+1);
-        printtree(node->right, index+1);
+        printtree(node->left, 2*index+1);
+        printtree(node->right, 2*index+2);
     }
 }
 void printbuildtree(std::shared_ptr<BVHnode> node)

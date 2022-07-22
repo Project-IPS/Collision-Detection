@@ -10,7 +10,7 @@
 struct Collisiondata
 {
     public:
-    std::vector<PotentialContact> dataArray;
+    PotentialContact contact;
     Collisiondata() = default;
 
 };
@@ -87,29 +87,29 @@ class Dispatcher
     public:
     Dispatcher() = default;
     Collisiondata collisionInfo; 
-    std::vector<PotentialContact> getcollisionInfo();
+    PotentialContact getcollisionInfo();
 
-    void dispatch(std::vector<PotentialContact> receieved)
+    void dispatch(PotentialContact receieved)
     {
      
-        for(int i =0; i<receieved.size(); i++){
-        Circle c = receieved[i].body1;
-        Rectangle r = receieved[i].body2;
+        
+        Circle c = receieved.body1;
+        Rectangle r = receieved.body2;
         Checkcollisions checker;
         bool flag = checker.circle_rectangle(c, r);
         if(flag == true)
         {
             std::cout<<"Collision detected!"<<std::endl;
-            collisionInfo.dataArray.push_back(PotentialContact(c, r));
+            collisionInfo.contact = PotentialContact(c, r);
         }
-        }
+        
         
         
     }   
 };
-std::vector<PotentialContact> Dispatcher::getcollisionInfo()
+PotentialContact Dispatcher::getcollisionInfo()
 {
-    return collisionInfo.dataArray;
+    return collisionInfo.contact;
 }
 
 #endif

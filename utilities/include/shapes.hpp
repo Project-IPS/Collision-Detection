@@ -17,6 +17,7 @@ class Rectangle
     {
         
         calculateAABB();
+        center = vec2((points[0].x+points[1].x+points[2].x+points[3].x)/4,(points[0].y+points[1].y+points[2].y+points[3].y)/4);
     }
 
     void calculateAABB()

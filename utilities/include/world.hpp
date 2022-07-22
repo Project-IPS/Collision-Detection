@@ -42,22 +42,43 @@ class World
        
         bvh.buildTree(bvh.root, 0, shapes.size() - 1);
         
-        //printbuildtree(bvh.root);
+        printbuildtree(bvh.root);
+       // printshapes(shapes);
         
         getPotentialContacts(bvh.root, collisionArray, pointer);
         printcollisions(collisionArray); 
        
         Dispatcher dispatch;
-        dispatch.dispatch(collisionArray);
-        std::vector<PotentialContact> narrowphaseArray = dispatch.getcollisionInfo();
-        printcollisions(narrowphaseArray); 
         
-        for(int i =0; i< narrowphaseArray.size(); i++)
+        
+        
+        
+        while(collisionArray.size() != 0)
         {
-            resolveCollision(currPos, prevPos, narrowphaseArray[i].body2 , narrowphaseArray[i].body1);
+            
+
+        for(int i =0; i< collisionArray.size(); i++)
+        {
+            
+            collisionArray[i].body1.center = currPos;
+            dispatch.dispatch(collisionArray[i]);
+            PotentialContact narrowphase = dispatch.getcollisionInfo();
+            resolveCollision(pointer.center, prevPos, narrowphase.body2 , narrowphase.body1);
+            currPos =  pointer.center; 
+            pointer.calculateAABB();
+            std::cout<<"The  position is "<<pointer.center.x<<" "<<pointer.center.y<<std::endl;
 
         }
-        std::cout<<"The changed position is "<<currPos.x<<" "<<currPos.y<<std::endl;
+        
+        collisionArray.clear();
+       
+        getPotentialContacts(bvh.root, collisionArray, pointer);
+         printcollisions(collisionArray);
+        
+
+        }
+
+        std::cout<<"The final  position is "<<pointer.center.x<<" "<<pointer.center.y<<std::endl;
 
 
         // call dispatcher to narrowphase

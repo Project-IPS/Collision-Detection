@@ -11,6 +11,7 @@ struct PotentialContact
     public:
     Circle body1;
     Rectangle body2;
+    PotentialContact() = default;
     PotentialContact(Circle& body1, Rectangle& body2): body1(body1), body2(body2){}
 };
 
@@ -23,6 +24,7 @@ bool isLeaf(std::shared_ptr<BVHnode> node)
 
 void getPotentialContacts(std::shared_ptr<BVHnode>node,  std::vector<PotentialContact>& collisionArray, Circle& c)
 {
+    
     if(node == nullptr) return;
    
      AABB P1 =node->enclosedAABB;
